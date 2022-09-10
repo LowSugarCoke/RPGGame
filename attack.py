@@ -14,7 +14,7 @@ class Attack(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x-30
         self.rect.y = y-170
-        self.damage = 10
+        self.damage = 100
 
     def blitme(self, num):
         self.screen.blit(self.images[num], self.rect)

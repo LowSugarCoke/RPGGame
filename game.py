@@ -9,6 +9,7 @@ class RPGGame:
         pygame.init()
         self.w = w
         self.h = h
+        self.win = False
 
         # init display
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -38,7 +39,7 @@ class RPGGame:
                 crash_result = pygame.sprite.collide_rect_ratio(0.9)(
                     self.attack, self.monster)
                 if crash_result == 1:
-                    print("collision")
+                    # print("collision")
                     damage = self.attack.damage
                     self.monster.life -= damage
                 else:
@@ -54,3 +55,17 @@ class RPGGame:
 
                     pygame.quit()
                     quit()
+
+            print(self.monster.life)
+            if self.monster.life < 0:
+                print("win")
+                crashed = True
+                pygame.display.update()
+                pygame.quit()
+                quit()
+
+    def win(self):
+        if self.monster.getBlood() == 0:
+            return True
+        else:
+            return False
