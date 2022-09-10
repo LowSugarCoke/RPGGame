@@ -1,5 +1,3 @@
-
-from ctypes import sizeof
 import pygame
 from pygame.sprite import Sprite
 
