@@ -12,6 +12,7 @@ class Monster(Sprite):
         self.rect.y = 10
         self.blood_bar_position = [self.screen.get_width()/4, self.rect.y]
         self.life = self.screen.get_width()/2
+        self.damage = 100
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -20,5 +21,5 @@ class Monster(Sprite):
         pygame.draw.rect(self.screen, (255, 0, 0),
                          (self.blood_bar_position[0], self.blood_bar_position[1], self.life, 8))
 
-    def getBlood(self):
-        return self.life
+    def getPosition(self):
+        return self.rect.x, self.rect.y
