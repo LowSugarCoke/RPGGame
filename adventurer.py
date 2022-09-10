@@ -9,7 +9,7 @@ class Adventurer(Sprite):
         self.image = pygame.image.load('img/swordsman.png')
         self.rect = self.image.get_rect()
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
-        self.rect.y = 550
+        self.rect.y = 570
         self.blood_bar_position = [self.rect.x, self.rect.y]
 
     def blitme(self):
