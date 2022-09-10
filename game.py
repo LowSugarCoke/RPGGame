@@ -1,6 +1,7 @@
 import pygame
 from monster import Monster
 from adventurer import Adventurer
+from attack import Attack
 
 
 class RPGGame:
@@ -19,16 +20,24 @@ class RPGGame:
 
         self.monster = Monster(self)
         self.adventorer = Adventurer(self)
+        self.attack = Attack(self)
+        i = 0
         while not crashed:
+
+            clock.tick(10)
             pygame.display.flip()
 
             self.monster.blitme()
             self.adventorer.blitme()
+            self.attack.blitme(i)
+            i = i+1
+            if(i == 12):
+                i = 0
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     crashed = True
                     print(event)
                     pygame.display.update()
-                    clock.tick(60)
+
                     pygame.quit()
                     quit()
