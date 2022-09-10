@@ -20,16 +20,17 @@ class RPGGame:
 
         self.monster = Monster(self)
         self.adventorer = Adventurer(self)
-        self.attack = Attack(self)
+        a_x, a_y = self.adventorer.getPosition()
+        self.attack = Attack(self, a_x, a_y)
         i = 0
         while not crashed:
 
             clock.tick(10)
             pygame.display.flip()
-
             self.monster.blitme()
-            self.adventorer.blitme()
             self.attack.blitme(i)
+            self.adventorer.blitme()
+
             i = i+1
             if(i == 12):
                 i = 0
