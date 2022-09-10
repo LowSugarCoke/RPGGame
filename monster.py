@@ -18,4 +18,4 @@ class Monster(Sprite):
         pygame.draw.rect(self.screen, (0, 128, 0),
                          (self.blood_bar_position[0], self.blood_bar_position[1], self.screen.get_width()/2, 8))
         pygame.draw.rect(self.screen, (255, 0, 0),
-                         (self.blood_bar_position[0], self.blood_bar_position[1], self.screen.get_width()/2, 8))
+                         (self.blood_bar_position[0], self.blood_bar_position[1], self.life, 8))

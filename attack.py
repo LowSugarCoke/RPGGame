@@ -13,7 +13,8 @@ class Attack(Sprite):
         self.image = pygame.image.load('img/monster.gif')
         self.rect = self.image.get_rect()
         self.rect.x = x-30
-        self.rect.y = y-130
+        self.rect.y = y-170
+        self.damage = 10
 
     def blitme(self, num):
         self.screen.blit(self.images[num], self.rect)
