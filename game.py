@@ -27,13 +27,19 @@ class RPGGame:
 
             clock.tick(10)
             pygame.display.flip()
-            self.monster.blitme()
+
             self.attack.blitme(i)
             self.adventorer.blitme()
-
+            self.monster.blitme()
             i = i+1
             if(i == 12):
                 i = 0
+
+            crash_result = pygame.sprite.collide_rect(
+                self.attack, self.monster)
+            if crash_result == 1:
+                print("collision")
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     crashed = True
