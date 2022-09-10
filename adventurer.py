@@ -11,6 +11,7 @@ class Adventurer(Sprite):
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = self.screen.get_height()-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
+        self.life = self.rect.x
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)

@@ -2,6 +2,7 @@ import pygame
 from monster import Monster
 from adventurer import Adventurer
 from attack import Attack
+from monster_attack import MonsterAttack
 
 
 class RPGGame:
@@ -20,17 +21,23 @@ class RPGGame:
         print(pygame.display.get_surface().get_size())
 
         self.monster = Monster(self)
+        m_x, m_y = self.monster.getPosition()
+        self.monster_attack = MonsterAttack(self, m_x, m_y)
+
         self.adventorer = Adventurer(self)
         a_x, a_y = self.adventorer.getPosition()
         self.attack = Attack(self, a_x, a_y)
+
         i = 0
         while not crashed:
 
             clock.tick(10)
             pygame.display.flip()
 
+            self.monster_attack.blitme(i)
             self.attack.blitme(i)
             self.adventorer.blitme()
+
             self.monster.blitme()
             i = i+1
             if(i == 12):
@@ -63,9 +70,3 @@ class RPGGame:
                 pygame.display.update()
                 pygame.quit()
                 quit()
-
-    def win(self):
-        if self.monster.getBlood() == 0:
-            return True
-        else:
-            return False
