@@ -8,10 +8,14 @@ class Monster(Sprite):
         self.screen = game.screen
         self.image = pygame.image.load('img/monster.gif')
         self.rect = self.image.get_rect()
-
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
-        self.rect.y = 0
-        self.x = float(self.rect.x)
+        self.rect.y = 10
+        self.blood_bar_position = [self.screen.get_width()/4, self.rect.y]
+        self.life = self.screen.get_width()/2
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+        pygame.draw.rect(self.screen, (0, 128, 0),
+                         (self.blood_bar_position[0], self.blood_bar_position[1], self.screen.get_width()/2, 8))
+        pygame.draw.rect(self.screen, (255, 0, 0),
+                         (self.blood_bar_position[0], self.blood_bar_position[1], self.screen.get_width()/2, 8))

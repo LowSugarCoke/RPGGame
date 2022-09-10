@@ -10,7 +10,11 @@ class Adventurer(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = self.screen.get_height() - self.rect.height
-        self.x = float(self.rect.x)
+        self.blood_bar_position = [self.rect.x, self.rect.y]
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+        pygame.draw.rect(self.screen, (0, 128, 0),
+                         (self.blood_bar_position[0], self.blood_bar_position[1], self.rect.width, 8))
+        pygame.draw.rect(self.screen, (255, 0, 0),
+                         (self.blood_bar_position[0], self.blood_bar_position[1], self.rect.width, 8))
