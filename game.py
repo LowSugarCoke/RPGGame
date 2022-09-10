@@ -1,5 +1,6 @@
 import pygame
 from monster import Monster
+from adventurer import Adventurer
 
 
 class RPGGame:
@@ -14,10 +15,15 @@ class RPGGame:
         clock = pygame.time.Clock()
         crashed = False
 
+        print(pygame.display.get_surface().get_size())
+
         self.monster = Monster(self)
+        self.adventorer = Adventurer(self)
         while not crashed:
             pygame.display.flip()
+
             self.monster.blitme()
+            self.adventorer.blitme()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     crashed = True
