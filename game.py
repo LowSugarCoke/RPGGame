@@ -34,12 +34,17 @@ class RPGGame:
             i = i+1
             if(i == 12):
                 i = 0
-                crash_result = pygame.sprite.collide_rect(
+
+                crash_result = pygame.sprite.collide_rect_ratio(0.9)(
                     self.attack, self.monster)
                 if crash_result == 1:
                     print("collision")
                     damage = self.attack.damage
                     self.monster.life -= damage
+                else:
+                    self.adventorer.move()
+                    px, py = self.adventorer.getPosition()
+                    self.attack.move(py)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

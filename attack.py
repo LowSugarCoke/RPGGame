@@ -26,3 +26,6 @@ class Attack(Sprite):
             self.images[i] = pygame.transform.rotozoom(
                 self.images[i], -90, 0.5)
         print(len(self.images))
+
+    def move(self, y):
+        self.rect.y = y-170
