@@ -7,6 +7,7 @@ class Monster(Sprite):
         super().__init__()
         self.screen = game.screen
         self.image = pygame.image.load('img/monster.gif')
+        self.image = pygame.transform.rotozoom(self.image, 0, 0.5)
         self.rect = self.image.get_rect()
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = 10

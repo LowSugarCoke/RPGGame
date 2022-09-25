@@ -7,6 +7,7 @@ class Adventurer(Sprite):
         super().__init__()
         self.screen = game.screen
         self.image = pygame.image.load('img/swordsman.png')
+        # self.image = pygame.transform.rotozoom(self.image, 0, 0.5)
         self.rect = self.image.get_rect()
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = self.screen.get_height()-self.rect.height
@@ -14,6 +15,7 @@ class Adventurer(Sprite):
         self.life = self.rect.x
 
     def blitme(self):
+        
         self.screen.blit(self.image, self.rect)
         pygame.draw.rect(self.screen, (0, 128, 0),
                          (self.blood_bar_position[0], self.blood_bar_position[1], self.rect.width, 8))
@@ -24,5 +26,5 @@ class Adventurer(Sprite):
         return self.rect.x, self.rect.y
 
     def move(self):
-        self.rect.y = self.rect.y-10
+        self.rect.y -=10
         self.blood_bar_position = [self.rect.x, self.rect.y]
