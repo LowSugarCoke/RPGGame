@@ -12,7 +12,7 @@ class Attack(Sprite):
         self.loadImages()
         self.image = pygame.image.load('img/sword/attack-0.jpg')
         self.rect = self.image.get_rect()
-        self.rect.x = x-30
+        self.rect.x = x-15
         self.rect.y = y-170
         self.damage = 100
 
@@ -24,8 +24,8 @@ class Attack(Sprite):
             self.images.append(pygame.image.load(
                 'img/sword/attack-'+str(i)+'.jpg').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
-                self.images[i], -90, 0.5)
+                self.images[i], -90, 0.25)
         print(len(self.images))
 
     def move(self, y):
-        self.rect.y = y-170
+        self.rect.y = y-85

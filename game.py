@@ -13,7 +13,7 @@ class RPGGame:
         self.win = False
 
         # init display
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((w, h))
         pygame.display.set_caption('RPG Game')
         clock = pygame.time.Clock()
         crashed = False
@@ -30,11 +30,12 @@ class RPGGame:
 
         i = 0
         while not crashed:
-
+            
             clock.tick(10)
-            pygame.display.flip()
+            
+            self.screen.fill((0,0,0))
 
-            self.monster_attack.blitme(i)
+            # self.monster_attack.blitme(i)
             self.attack.blitme(i)
             self.adventorer.blitme()
 
@@ -70,3 +71,5 @@ class RPGGame:
                 pygame.display.update()
                 pygame.quit()
                 quit()
+            
+            pygame.display.flip()

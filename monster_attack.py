@@ -25,6 +25,6 @@ class MonsterAttack(Sprite):
             self.images.append(pygame.image.load(
                 'img/monster_attack/monster_attack-'+str(i)+'.jpg').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
-                self.images[i], 0, 1)
+                self.images[i], 0, 0.5)
 
         print(len(self.images))
