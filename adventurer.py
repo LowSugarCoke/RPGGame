@@ -12,7 +12,7 @@ class Adventurer(Sprite):
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = self.screen.get_height()-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
-        self.life = self.rect.x
+        self.life = 100
 
     def blitme(self):
         
@@ -20,7 +20,7 @@ class Adventurer(Sprite):
         pygame.draw.rect(self.screen, (0, 128, 0),
                          (self.blood_bar_position[0], self.blood_bar_position[1], self.rect.width, 8))
         pygame.draw.rect(self.screen, (255, 0, 0),
-                         (self.blood_bar_position[0], self.blood_bar_position[1], self.rect.width, 8))
+                         (self.blood_bar_position[0], self.blood_bar_position[1], (self.life) * (self.rect.width/100), 8))
 
     def getPosition(self):
         return self.rect.x, self.rect.y
