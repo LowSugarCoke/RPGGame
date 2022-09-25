@@ -24,3 +24,6 @@ class Monster(Sprite):
 
     def getPosition(self):
         return self.rect.x, self.rect.y
+
+    def getMonsterRect(self):
+        return self.rect

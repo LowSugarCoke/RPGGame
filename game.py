@@ -16,45 +16,46 @@ class RPGGame:
         self.screen = pygame.display.set_mode((w, h))
         pygame.display.set_caption('RPG Game')
         clock = pygame.time.Clock()
-        crashed = False
-
-        print(pygame.display.get_surface().get_size())
+        crashed = False      
 
         self.monster = Monster(self)
-        m_x, m_y = self.monster.getPosition()
-        self.monster_attack = MonsterAttack(self, m_x, m_y)
+        monsterX1, monsterY1 = self.monster.getPosition()
+        monsterRect = self.monster.getMonsterRect()
+        self.monster_attack = MonsterAttack(self, monsterX1, monsterX1+monsterRect.width, monsterY1, monsterY1+monsterRect.height)
 
-        self.adventorer = Adventurer(self)
-        a_x, a_y = self.adventorer.getPosition()
+        self.adventurer = Adventurer(self)
+        a_x, a_y = self.adventurer.getPosition()
         self.attack = Attack(self, a_x, a_y)
 
         i = 0
-        while not crashed:
-            
-            clock.tick(10)
-            
+        while not crashed:            
+            clock.tick(10)            
             self.screen.fill((0,0,0))
 
-            # self.monster_attack.blitme(i)
             self.attack.blitme(i)
-            self.adventorer.blitme()
-
+            self.adventurer.blitme()
             self.monster.blitme()
+            self.monster_attack.blitme(i)
             i = i+1
             if(i == 12):
+                self.monster_attack.randomPosition()
                 i = 0
 
-                crash_result = pygame.sprite.collide_rect_ratio(0.9)(
-                    self.attack, self.monster)
-                if crash_result == 1:
-                    # print("collision")
+                crash_result = pygame.sprite.collide_rect_ratio(0.9)(self.attack, self.monster)
+                if crash_result == 1:         
                     damage = self.attack.damage
                     self.monster.life -= damage
                 else:
-                    self.adventorer.move()
-                    px, py = self.adventorer.getPosition()
+                    self.adventurer.move()
+                    px, py = self.adventurer.getPosition()
                     self.attack.move(py)
 
+                harmAdventurer = pygame.sprite.collide_rect_ratio(0.7)(self.adventurer, self.monster_attack)
+                if harmAdventurer:
+                    print("Harm ")
+                    damage = self.monster_attack.damage
+                    self.adventurer.life -= damage
+                                        
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     crashed = True
@@ -64,9 +65,14 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
-            print(self.monster.life)
-            if self.monster.life < 0:
+            if self.monster.life <= 0:
                 print("win")
+                crashed = True
+                pygame.display.update()
+                pygame.quit()
+                quit()
+            if self.adventurer.life <= 0:
+                print("Lose")
                 crashed = True
                 pygame.display.update()
                 pygame.quit()
