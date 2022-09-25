@@ -1,8 +1,10 @@
 import pygame
+import os
 from monster import Monster
 from adventurer import Adventurer
 from attack import Attack
 from monster_attack import MonsterAttack
+
 
 
 class RPGGame:
@@ -12,12 +14,19 @@ class RPGGame:
         self.h = h
         self.win = False
 
+
         # init display
         self.screen = pygame.display.set_mode((w, h))
         pygame.display.set_caption('RPG Game')
         clock = pygame.time.Clock()
         crashed = False      
 
+        #init music
+        pygame.mixer.init() # add this line
+        pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
+        pygame.mixer.music.play(-1)
+
+        
         self.monster = Monster(self)
         monsterX1, monsterY1 = self.monster.getPosition()
         monsterRect = self.monster.getMonsterRect()
