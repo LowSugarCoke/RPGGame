@@ -13,7 +13,7 @@ class Attack(Sprite):
         self.image = pygame.image.load('img/sword/attack-0.jpg')
         self.rect = self.image.get_rect()
         self.rect.x = x-15
-        self.rect.y = y-170
+        self.rect.y = y-85
         self.damage = 100
 
     def blitme(self, num):
