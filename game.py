@@ -6,7 +6,6 @@ from attack import Attack
 from monster_attack import MonsterAttack
 
 
-
 class RPGGame:
     def __init__(self, w=800, h=600):
         pygame.init()
@@ -24,7 +23,7 @@ class RPGGame:
         #init music
         pygame.mixer.init() # add this line
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
-        pygame.mixer.music.play(-1)
+        # pygame.mixer.music.play(-1)
 
         
         self.monster = Monster(self)
@@ -37,14 +36,20 @@ class RPGGame:
         self.attack = Attack(self, a_x, a_y)
 
         i = 0
+        adventurerDamage=0
+        monsterDamage = 0
         while not crashed:            
             clock.tick(10)            
             self.screen.fill((0,0,0))
 
             self.attack.blitme(i)
             self.adventurer.blitme()
+            adventurerDamage = self.adventurer.showHarm(adventurerDamage)
+                            
             self.monster.blitme()
-            self.monster_attack.blitme(i)
+            self.monster_attack.blitme(i)           
+            monsterDamage = self.monster.showHarm(monsterDamage)
+
             i = i+1
             if(i == 12):
                 self.monster_attack.randomPosition()
@@ -54,6 +59,7 @@ class RPGGame:
                 if crash_result == 1:         
                     damage = self.attack.damage
                     self.monster.life -= damage
+                    monsterDamage = damage
                 else:
                     self.adventurer.move()
                     px, py = self.adventurer.getPosition()
@@ -64,6 +70,8 @@ class RPGGame:
                     print("Harm ")
                     damage = self.monster_attack.damage
                     self.adventurer.life -= damage
+                    adventurerDamage = damage
+
                                         
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
