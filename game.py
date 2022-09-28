@@ -1,9 +1,13 @@
 import pygame
 import os
+import math
 from monster import Monster
 from adventurer import Adventurer
+from archer import Archer
 from attack import Attack
+from archer_attack import ArcherAttack
 from monster_attack import MonsterAttack
+
 
 
 class RPGGame:
@@ -35,9 +39,16 @@ class RPGGame:
         a_x, a_y = self.adventurer.getPosition()
         self.attack = Attack(self, a_x, a_y)
 
+        self.archer = Archer(self)
+        archerX, archerY = self.archer.getPosition()
+        self.archerAttack = ArcherAttack(self, archerX, archerY)
+
         i = 0
         adventurerDamage=0
         monsterDamage = 0
+
+        archerDamage = 0
+
         while not crashed:            
             clock.tick(10)            
             self.screen.fill((0,0,0))
@@ -45,6 +56,14 @@ class RPGGame:
             self.attack.blitme(i)
             self.adventurer.blitme()
             adventurerDamage = self.adventurer.showHarm(adventurerDamage)
+
+            monsterX, monsterY = self.monster.getPosition()
+            archerX, archerY = self.archer.getPosition()
+            distance = math.sqrt((monsterX - archerX)**2 + (monsterY - archerY) **2 )
+            if(distance<=400):
+                self.archerAttack.blitme(i)
+            self.archer.blitme()
+            archerDamage = self.archer.showHarm(archerDamage)
                             
             self.monster.blitme()
             self.monster_attack.blitme(i)           
@@ -64,13 +83,33 @@ class RPGGame:
                     self.adventurer.move()
                     px, py = self.adventurer.getPosition()
                     self.attack.move(py)
+                    
+            
 
-                harmAdventurer = pygame.sprite.collide_rect_ratio(0.7)(self.adventurer, self.monster_attack)
+                
+                print(distance)
+                if(distance>400):
+                    self.archer.move()
+                    px, py = self.archer.getPosition()
+                    self.archerAttack.move(py)
+                else:
+                    damage = self.archerAttack.damage
+                    self.monster.life -= damage
+                    monsterDamage = damage
+
+                harmAdventurer = pygame.sprite.collide_rect_ratio(0.5)(self.adventurer, self.monster_attack)
                 if harmAdventurer:
                     print("Harm ")
                     damage = self.monster_attack.damage
                     self.adventurer.life -= damage
                     adventurerDamage = damage
+
+                harmArcher = pygame.sprite.collide_rect_ratio(0.5)(self.archer, self.monster_attack)
+                if harmArcher:
+                    print("Harm ")
+                    damage = self.monster_attack.damage
+                    self.archer.life -= damage
+                    archerDamage = damage
 
                                         
             for event in pygame.event.get():

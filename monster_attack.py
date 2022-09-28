@@ -13,7 +13,7 @@ class MonsterAttack(Sprite):
         self.images = []
         self.loadImages()
         self.image = pygame.image.load(
-            'img/monster_attack/monster_attack-0.jpg')
+            'img/monster_attack/monster_attack-0.png')
         self.rect = self.image.get_rect()
         self.monsterX1 = x1
         self.monsterX2 = x2
@@ -39,7 +39,7 @@ class MonsterAttack(Sprite):
     def loadImages(self):
         for i in range(0, 12):
             self.images.append(pygame.image.load(
-                'img/monster_attack/monster_attack-'+str(i)+'.jpg').convert_alpha())
+                'img/monster_attack/monster_attack-'+str(i)+'.png').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
                 self.images[i], 0, 0.7)
 
