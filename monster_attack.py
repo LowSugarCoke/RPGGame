@@ -28,10 +28,14 @@ class MonsterAttack(Sprite):
         randomX = self.monsterX1+1
         randomY = self.monsterY1+1
 
-        while( (randomX > self.monsterX1 and randomX < self.monsterX2) or randomX > 750):
-                    randomX = random.randint(0, self.screen.get_width())
-        while( (randomY > self.monsterY1 and randomY < self.monsterY2) or randomY > 550):
-                    randomY = random.randint(0, self.screen.get_height())
+        while ( ( randomX > self.monsterX1 and randomX < self.monsterX2 and randomY >self.monsterY1 and randomY < self.monsterY2 ) or randomX > 750 or randomY > 550):
+            randomX = random.randint(0, self.screen.get_width())
+            randomY = random.randint(0, self.screen.get_height())
+
+        # while( (randomX > self.monsterX1 and randomX < self.monsterX2) or randomX > 750):
+        #             randomX = random.randint(0, self.screen.get_width())
+        # while( (randomY > self.monsterY1 and randomY < self.monsterY2) or randomY > 550):
+        #             randomY = random.randint(0, self.screen.get_height())
         self.rect.x = randomX
         self.rect.y = randomY
 

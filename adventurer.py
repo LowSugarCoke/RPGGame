@@ -18,10 +18,10 @@ class Adventurer(Sprite):
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.maxLife = self.adventurerData.life
         self.life =  self.adventurerData.life
-        self.damageCountDistance =  self.adventurerData.damageCountDistance
+        self.damageCountDistance =  self.adventurerData.attack.damageCountDistance
         self.attack = self.adventurerData.attack
         self.attack.setPosition(self.rect.x+self.adventurerData.attackPosition[0], self.rect.y+self.adventurerData.attackPosition[1])
-
+        self.cd = 0
         self.harmTimer = 0
         self.lastHarm = 0
         self.distanceWithMonster = self.adventurerData.distanceWithMonster
@@ -42,8 +42,13 @@ class Adventurer(Sprite):
         self.blood_bar_position = [self.rect.x, self.rect.y]
 
     def attackMonster(self, monster):
-        damage = random.randint(self.damageCountDistance[0], self.damageCountDistance[1])
-        monster.getHarm(damage)
+        if self.cd <= 0:
+            damage = random.randint(self.damageCountDistance[0], self.damageCountDistance[1])
+            monster.getHarm(damage)
+            self.cd = self.adventurerData.cdTime
+        else:
+            self.cd -=1
+            
 
     def getHarm(self, harm):
         self.lastHarm = harm
@@ -57,7 +62,7 @@ class Adventurer(Sprite):
             self.harmTimer-=1
     
     def showAttack(self, monster, num):
-        if self.isInAttackRange(monster):
+        if self.isInAttackRange(monster) and self.cd <= 0:
             self.attack.blitme(num)
             self.attack.move(self.rect.x+self.adventurerData.attackPosition[0], self.rect.y+self.adventurerData.attackPosition[1])
 

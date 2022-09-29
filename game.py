@@ -29,6 +29,7 @@ class RPGGame:
         self.swordsmanData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.archerData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.orcData = AdventurerData(self.screen.get_width(), self.screen.get_height())
+        self.magicianData = AdventurerData(self.screen.get_width(), self.screen.get_height())
 
         #initial attack
         self.initialAttack()
@@ -38,17 +39,13 @@ class RPGGame:
         monsterRect = self.monster.getMonsterRect()
         self.monster_attack = MonsterAttack(self, monsterX1, monsterX1+monsterRect.width, monsterY1, monsterY1+monsterRect.height)
 
-        self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData)]
-
-        # self.swordsman = Adventurer(self, self.swordsmanData)
-        # self.archer = Adventurer(self, self.archerData)
-        # self.orc = Adventurer(self, self.orcData)
+        self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData), Adventurer(self, self.magicianData)]
 
         i = 0
 
         deadNum = 0
         while not crashed:            
-            clock.tick(20)            
+            clock.tick(24)            
             self.screen.fill((0,0,0))
     
             self.monster.blitme()      
@@ -71,7 +68,7 @@ class RPGGame:
                 i = 0
 
                 for adventurer in self.adventurer:
-                    if pygame.sprite.collide_rect_ratio(0.5)(adventurer, self.monster_attack):
+                    if pygame.sprite.collide_rect_ratio(0.9)(adventurer, self.monster_attack):
                         self.monster.attackAdventurer(adventurer)
                     if adventurer.isInAttackRange(self.monster):
                         adventurer.attackMonster(self.monster)
@@ -112,3 +109,6 @@ class RPGGame:
             
         self.orcAttack = Attack(self)
         self.orcData.createOrc(self.orcAttack)
+
+        self.magicianAttack = Attack(self)
+        self.magicianData.createMagician(self.magicianAttack)
