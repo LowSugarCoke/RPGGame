@@ -1,6 +1,5 @@
 import pygame
 import os
-import math
 from adventurer_data import AdventurerData
 from monster import Monster
 from adventurer import Adventurer
@@ -29,7 +28,8 @@ class RPGGame:
         #init adventurer data
         self.swordsmanData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.archerData = AdventurerData(self.screen.get_width(), self.screen.get_height())
-  
+        self.orcData = AdventurerData(self.screen.get_width(), self.screen.get_height())
+
         #initial attack
         self.initialAttack()
 
@@ -38,11 +38,15 @@ class RPGGame:
         monsterRect = self.monster.getMonsterRect()
         self.monster_attack = MonsterAttack(self, monsterX1, monsterX1+monsterRect.width, monsterY1, monsterY1+monsterRect.height)
 
-        self.swordsman = Adventurer(self, self.swordsmanData)
-        self.archer = Adventurer(self, self.archerData)
-        
+        self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData)]
+
+        # self.swordsman = Adventurer(self, self.swordsmanData)
+        # self.archer = Adventurer(self, self.archerData)
+        # self.orc = Adventurer(self, self.orcData)
+
         i = 0
 
+        deadNum = 0
         while not crashed:            
             clock.tick(20)            
             self.screen.fill((0,0,0))
@@ -50,16 +54,15 @@ class RPGGame:
             self.monster.blitme()      
             self.monster.showHarm()
 
-            if self.swordsman.life > 0:
-                self.swordsman.showAttack(self.monster, i)
-                self.swordsman.blitme()
-                self.swordsman.showHarm()
-
-            if self.archer.life>0:
-                self.archer.showAttack(self.monster, i)
-                self.archer.blitme()
-                self.archer.showHarm()
-
+            for adventurer in self.adventurer:
+                deadNum = 0
+                if adventurer.life >0:
+                    adventurer.showAttack(self.monster, i)
+                    adventurer.blitme()
+                    adventurer.showHarm()
+                else:
+                    deadNum+=1
+            
             self.monster_attack.blitme(i)     
 
             i = i+1
@@ -67,25 +70,13 @@ class RPGGame:
                 self.monster_attack.randomPosition()
                 i = 0
 
-                if self.swordsman.isInAttackRange(self.monster):               
-                    self.swordsman.attackMonster(self.monster)         
-                else:
-                    self.swordsman.move()
-
-                if(self.archer.isInAttackRange(self.monster)):
-                    self.archer.attackMonster(self.monster)
-                else: 
-                    self.archer.move()
-
-                harmAdventurer = pygame.sprite.collide_rect_ratio(0.5)(self.swordsman, self.monster_attack)
-                if harmAdventurer:
-                    self.monster.attackAdventurer(self.swordsman)
-
-
-                harmArcher = pygame.sprite.collide_rect_ratio(0.5)(self.archer, self.monster_attack)
-                if harmArcher:
-                    self.monster.attackAdventurer(self.archer)
-
+                for adventurer in self.adventurer:
+                    if pygame.sprite.collide_rect_ratio(0.5)(adventurer, self.monster_attack):
+                        self.monster.attackAdventurer(adventurer)
+                    if adventurer.isInAttackRange(self.monster):
+                        adventurer.attackMonster(self.monster)
+                    else:
+                        adventurer.move()
                                         
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -96,14 +87,15 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
-            if self.monster.life <= 0:
-                print("win")
+
+            if deadNum == len(self.adventurer ):
+                print("Lose")
                 crashed = True
                 pygame.display.update()
                 pygame.quit()
                 quit()
-            if self.swordsman.life <= 0:
-                print("Lose")
+            if self.monster.life <0:
+                print("Win")
                 crashed = True
                 pygame.display.update()
                 pygame.quit()
@@ -118,3 +110,5 @@ class RPGGame:
         self.archerAttack = Attack(self)
         self.archerData.createArcher(self.archerAttack)
             
+        self.orcAttack = Attack(self)
+        self.orcData.createOrc(self.orcAttack)
