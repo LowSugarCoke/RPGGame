@@ -42,4 +42,3 @@ class MonsterAttack(Sprite):
             self.images[i] = pygame.transform.rotozoom(
                 self.images[i], 0, 0.7)
 
-        print(len(self.images))

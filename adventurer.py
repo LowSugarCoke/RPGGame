@@ -38,7 +38,7 @@ class Adventurer(Sprite):
         return self.rect.x, self.rect.y
 
     def move(self):
-        self.rect.y -= self.adventurerData.moveDistance
+        self.rect.y -= self.adventurerData.moveSpeed
         self.blood_bar_position = [self.rect.x, self.rect.y]
 
     def attackMonster(self, monster):
@@ -49,9 +49,6 @@ class Adventurer(Sprite):
         self.lastHarm = harm
         self.life -= harm
         self.harmTimer = 6
-
-    # def blitAttack(self):
-
 
     def showHarm(self):
         if self.harmTimer>0 :

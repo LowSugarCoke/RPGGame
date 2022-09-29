@@ -15,7 +15,7 @@ class AdventurerData:
         self.damageCountDistance = [0,100]        
         self.attack = None
         self.attackPosition = []
-        self.moveDistance = 0
+        self.moveSpeed = 0
 
     def createSwordsman(self, swordsManAttack):
         self.font = pygame.font.SysFont("arial", 36)
@@ -25,7 +25,7 @@ class AdventurerData:
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 1000
-        self.moveDistance = 15
+        self.moveSpeed = 15
         self.attackPosition = [-30, -140]
         self.attack = swordsManAttack
         self.attack.image = pygame.image.load('img/sword_attack/attack-0.png')
@@ -46,7 +46,7 @@ class AdventurerData:
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 1000
         self.attackPosition = [-15, -135]
-        self.moveDistance = 20
+        self.moveSpeed = 20
         self.attack = archerAttack
         self.attack.image = pygame.image.load('img/sword_attack/attack-0.png')
         self.attack.rect = self.attack.image.get_rect()
@@ -55,4 +55,23 @@ class AdventurerData:
         self.attack.zoom = 0.5
         self.attack.loadImages('img/archer_attack/attack-')
         self.distanceWithMonster = 400
+ 
+    def createOrc(self, orcAttack):
+        self.font = pygame.font.SysFont("arial", 36)
+        self.image = pygame.image.load('img/orc.png')
+        self.rect = self.image.get_rect()
+        self.rect.x = self.width*4/7 - self.rect.width/2
+        self.rect.y = self.height-self.rect.height
+        self.blood_bar_position = [self.rect.x, self.rect.y]
+        self.life = 1000
+        self.moveSpeed = 5
+        self.attackPosition = [-30, -140]
+        self.attack = orcAttack
+        self.attack.image = pygame.image.load('img/orc_attack/attack-0.png')
+        self.attack.rect = self.attack.image.get_rect()
+        self.attack.damage = 100
+        self.attack.rotation = -90
+        self.attack.zoom = 0.4
+        self.attack.loadImages('img/orc_attack/attack-')
+        self.distanceWithMonster = 300
  
