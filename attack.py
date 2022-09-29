@@ -5,27 +5,31 @@ from pygame.sprite import Sprite
 
 
 class Attack(Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game):
         super().__init__()
         self.screen = game.screen
         self.images = []
-        self.loadImages()
-        self.image = pygame.image.load('img/sword_attack/attack-0.png')
-        self.rect = self.image.get_rect()
-        self.rect.x = x-15
-        self.rect.y = y-85
-        self.damage = 100
+        self.image = None
+        self.rect = None
+        self.damage = 0
+        self.rotation = 0
+        self.zoom = 0
+
+    def setPosition(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
 
     def blitme(self, num):
         self.screen.blit(self.images[num], self.rect)
 
-    def loadImages(self):
+    def loadImages(self, path):
         for i in range(0, 12):
             self.images.append(pygame.image.load(
-                'img/sword_attack/attack-'+str(i)+'.png').convert_alpha())
+                path+str(i)+'.png').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
-                self.images[i], -90, 0.25)
+                self.images[i], self.rotation,  self.zoom)
         print(len(self.images))
 
-    def move(self, y):
-        self.rect.y = y-85
+    def move(self, x, y):
+        self.rect.x = x
+        self.rect.y = y

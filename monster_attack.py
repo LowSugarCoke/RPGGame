@@ -12,8 +12,7 @@ class MonsterAttack(Sprite):
         self.screen = game.screen
         self.images = []
         self.loadImages()
-        self.image = pygame.image.load(
-            'img/monster_attack/monster_attack-0.png')
+        self.image = pygame.image.load('img/monster_attack/monster_attack-0.png')
         self.rect = self.image.get_rect()
         self.monsterX1 = x1
         self.monsterX2 = x2
