@@ -12,6 +12,7 @@ class Attack(Sprite):
         self.image = None
         self.rect = None
         self.damageCountDistance = [0,0]
+        self.healDistance = [0, 0]
         self.rotation = 0
         self.zoom = 0
 

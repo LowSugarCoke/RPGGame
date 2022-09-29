@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 from adventurer_data import AdventurerData
 from monster import Monster
 from adventurer import Adventurer
@@ -30,6 +31,7 @@ class RPGGame:
         self.archerData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.orcData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.magicianData = AdventurerData(self.screen.get_width(), self.screen.get_height())
+        self.priestData = AdventurerData(self.screen.get_width(), self.screen.get_height())
 
         #initial attack
         self.initialAttack()
@@ -39,13 +41,14 @@ class RPGGame:
         monsterRect = self.monster.getMonsterRect()
         self.monster_attack = MonsterAttack(self, monsterX1, monsterX1+monsterRect.width, monsterY1, monsterY1+monsterRect.height)
 
-        self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData), Adventurer(self, self.magicianData)]
+        self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData), Adventurer(self, self.magicianData),
+        Adventurer(self, self.priestData)]
 
         i = 0
-
         deadNum = 0
+        healIndex = 0
         while not crashed:            
-            clock.tick(24)            
+            clock.tick(18)            
             self.screen.fill((0,0,0))
     
             self.monster.blitme()      
@@ -54,9 +57,14 @@ class RPGGame:
             for adventurer in self.adventurer:
                 deadNum = 0
                 if adventurer.life >0:
-                    adventurer.showAttack(self.monster, i)
+                    if adventurer.character !="Priest":
+                        adventurer.showAttack(self.monster, i)
+                    else:
+                        adventurer.showHeal(self.adventurer[healIndex],i)
+                        
                     adventurer.blitme()
                     adventurer.showHarm()
+                    self.adventurer[healIndex].showHealBlood()
                 else:
                     deadNum+=1
             
@@ -68,10 +76,17 @@ class RPGGame:
                 i = 0
 
                 for adventurer in self.adventurer:
+                    if adventurer.life <=0 :
+                        continue
                     if pygame.sprite.collide_rect_ratio(0.9)(adventurer, self.monster_attack):
                         self.monster.attackAdventurer(adventurer)
-                    if adventurer.isInAttackRange(self.monster):
+                    if adventurer.isInAttackRange(self.monster) and adventurer.character != "Priest":
                         adventurer.attackMonster(self.monster)
+                    elif adventurer.character == "Priest":
+                        healIndex = random.randint(0, 4)
+                        while self.adventurer[healIndex].life <0:
+                            healIndex = random.randint(0, 4)
+                        adventurer.heal(self.adventurer[healIndex])
                     else:
                         adventurer.move()
                                         
@@ -85,7 +100,7 @@ class RPGGame:
                     quit()
 
 
-            if deadNum == len(self.adventurer ):
+            if deadNum == len(self.adventurer)-1:
                 print("Lose")
                 crashed = True
                 pygame.display.update()
@@ -112,3 +127,6 @@ class RPGGame:
 
         self.magicianAttack = Attack(self)
         self.magicianData.createMagician(self.magicianAttack)
+
+        self.priestAttack = Attack(self)
+        self.priestData.createPriest(self.priestAttack)

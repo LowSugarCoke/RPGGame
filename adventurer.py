@@ -25,6 +25,9 @@ class Adventurer(Sprite):
         self.harmTimer = 0
         self.lastHarm = 0
         self.distanceWithMonster = self.adventurerData.distanceWithMonster
+        self.character = self.adventurerData.character
+        self.lastHeal = 0
+        self.healTimer = 0
         
 
     def blitme(self):        
@@ -49,7 +52,6 @@ class Adventurer(Sprite):
         else:
             self.cd -=1
             
-
     def getHarm(self, harm):
         self.lastHarm = harm
         self.life -= harm
@@ -73,3 +75,26 @@ class Adventurer(Sprite):
             return True
         else:
             return False
+
+    def heal(self, adventurer):
+        if self.cd <= 0:
+            adventurer.lastHeal  = random.randint(self.adventurerData.attack.healDistance[0], self.adventurerData.attack.healDistance[1])       
+            adventurer.life += adventurer.lastHeal        
+            if adventurer.life > adventurer.maxLife:
+                adventurer.life = adventurer.maxLife
+            self.cd = self.adventurerData.cdTime
+        else:
+            self.cd -=1 
+    
+    def showHeal(self, adventurer , num):
+        if self.cd <=0:
+            self.attack.blitme(num)
+            position = adventurer.getPosition()
+            self.attack.move(position[0]-25, position[1]-20)
+            adventurer.healTimer = 6
+
+    def showHealBlood(self):
+        if self.healTimer >0 and self.lastHeal >0:
+            textSurface = self.font.render(str(self.lastHeal), True, (0,255,0), (0, 0, 0))
+            self.screen.blit(textSurface,(self.rect.x+50,self.rect.y-50))
+            self.healTimer-=1
