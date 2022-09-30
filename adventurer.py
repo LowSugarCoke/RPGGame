@@ -28,6 +28,8 @@ class Adventurer(Sprite):
         self.character = self.adventurerData.character
         self.lastHeal = 0
         self.healTimer = 0
+        self.waitFrame = 0
+        self.attackFrame = -1
         
 
     def blitme(self):        
@@ -49,6 +51,7 @@ class Adventurer(Sprite):
             damage = random.randint(self.damageCountDistance[0], self.damageCountDistance[1])
             monster.getHarm(damage)
             self.cd = self.adventurerData.cdTime
+            self.attackFrame = 0
         else:
             self.cd -=1
             
@@ -63,10 +66,20 @@ class Adventurer(Sprite):
             self.screen.blit(textSurface,(self.rect.x+50,self.rect.y-50))
             self.harmTimer-=1
     
-    def showAttack(self, monster, num):
+    def countFrame(self):
+        self.attackFrame+=1
+
+    def isFrameContinue(self):
+        ret = self.attackFrame < self.adventurerData.attack.waitFrame
+        if ret==False:
+            self.attackFrame = 0
+        return ret
+
+    def showAttack(self, monster):
         if self.isInAttackRange(monster) and self.cd <= 0:
-            self.attack.blitme(num)
+            self.attack.blitme(self.attackFrame)
             self.attack.move(self.rect.x+self.adventurerData.attackPosition[0], self.rect.y+self.adventurerData.attackPosition[1])
+            
 
     def isInAttackRange(self, monster):
         monsterX, monsterY = monster.getPosition()        
@@ -83,15 +96,18 @@ class Adventurer(Sprite):
             if adventurer.life > adventurer.maxLife:
                 adventurer.life = adventurer.maxLife
             self.cd = self.adventurerData.cdTime
+            
+            self.attackFrame = 0
         else:
             self.cd -=1 
     
-    def showHeal(self, adventurer , num):
-        if self.cd <=0:
-            self.attack.blitme(num)
+    def showHeal(self, adventurer):
+        if self.cd <=0 :
+            self.attack.blitme(self.attackFrame)
             position = adventurer.getPosition()
             self.attack.move(position[0]-25, position[1]-20)
             adventurer.healTimer = 6
+
 
     def showHealBlood(self):
         if self.healTimer >0 and self.lastHeal >0:
