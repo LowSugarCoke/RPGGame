@@ -15,6 +15,7 @@ class Attack(Sprite):
         self.healDistance = [0, 0]
         self.rotation = 0
         self.zoom = 0
+        self.waitFrame = 0
 
     def setPosition(self, x, y):
         self.rect.x = x

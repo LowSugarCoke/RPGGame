@@ -18,13 +18,20 @@ class MonsterAttack(Sprite):
         self.monsterX2 = x2
         self.monsterY1 = y1
         self.monsterY2 = y2
+        self.attackFrame = 0
         self.randomPosition()
         self.damage = 100
+        
 
-    def blitme(self, num):
-        self.screen.blit(self.images[num], self.rect)
+    def blitme(self):
+        self.screen.blit(self.images[self.attackFrame], self.rect)
+        self.attackFrame +=1
 
     def randomPosition(self):
+        if self.attackFrame != 12:
+            return
+
+        self.attackFrame = 0
         randomX = self.monsterX1+1
         randomY = self.monsterY1+1
 
