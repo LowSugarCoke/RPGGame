@@ -44,6 +44,7 @@ class Monster(Sprite):
     def showHarm(self):
         if self.harmTimer > 0 :
             textSurface = self.font.render(str(self.lastHarm), True, (255,0,0), (0, 0, 0))
+            textSurface.set_alpha(127)
             self.screen.blit(textSurface,(self.rect.x+200,self.rect.y+30))
             self.harmTimer-=1
 
