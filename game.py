@@ -1,3 +1,4 @@
+from tkinter import dialog
 import pygame
 import os
 import random
@@ -6,7 +7,7 @@ from monster import Monster
 from adventurer import Adventurer
 from attack import Attack
 from monster_attack import MonsterAttack
-
+from opening import Opening
 
 class RPGGame:
     def __init__(self, w=800, h=600):
@@ -26,6 +27,25 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
+        self.opening = Opening(self)
+
+        dialogOn = True
+        while dialogOn:
+            self.opening.drawDialog()
+
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+
+                pygame.display.flip()
+
+
+
         #init adventurer data
         self.swordsmanData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.archerData = AdventurerData(self.screen.get_width(), self.screen.get_height())
