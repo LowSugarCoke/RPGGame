@@ -1,4 +1,3 @@
-from matplotlib.pyplot import text
 import pygame
 import random
 import math
@@ -64,7 +63,6 @@ class Adventurer(Sprite):
     def showHarm(self):
         if self.harmTimer>0 :
             textSurface = self.font.render(str(self.lastHarm), True, (255,0,0), (0, 0, 0))
-            textSurface.set_alpha(127)
             self.screen.blit(textSurface,(self.rect.x+50,self.rect.y-50))
             self.harmTimer-=1
     
@@ -114,6 +112,5 @@ class Adventurer(Sprite):
     def showHealBlood(self):
         if self.healTimer >0 and self.lastHeal >0:
             textSurface = self.font.render(str(self.lastHeal), True, (0,255,0), (0, 0, 0))
-            textSurface.set_alpha(127)
             self.screen.blit(textSurface,(self.rect.x+50,self.rect.y-50))
             self.healTimer-=1
