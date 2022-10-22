@@ -1,4 +1,4 @@
-from tkinter import dialog
+
 import pygame
 import os
 import random
@@ -8,6 +8,7 @@ from adventurer import Adventurer
 from attack import Attack
 from monster_attack import MonsterAttack
 from opening import Opening
+from adventurer_attribute import AdventurerAttribute
 
 class RPGGame:
     def __init__(self, w=800, h=600):
@@ -22,7 +23,7 @@ class RPGGame:
         clock = pygame.time.Clock()
         crashed = False      
 
-        #init music
+        # init music
         pygame.mixer.init() # add this line
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
@@ -46,14 +47,14 @@ class RPGGame:
 
 
 
-        #init adventurer data
+        # init adventurer data
         self.swordsmanData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.archerData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.orcData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.magicianData = AdventurerData(self.screen.get_width(), self.screen.get_height())
         self.priestData = AdventurerData(self.screen.get_width(), self.screen.get_height())
 
-        #initial attack
+        # initial attack
         self.initialAttack()
 
         self.monster = Monster(self)
@@ -63,6 +64,26 @@ class RPGGame:
 
         self.adventurer = [Adventurer(self, self.swordsmanData),Adventurer(self, self.archerData),  Adventurer(self, self.orcData), Adventurer(self, self.magicianData),
         Adventurer(self, self.priestData)]
+
+
+        # adventurer dialog
+        self.adventurerAttribute = AdventurerAttribute(self, self.adventurer)
+
+        adventurerDialogOn = True
+        while adventurerDialogOn:
+            self.adventurerAttribute.drawDialog()
+
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        adventurerDialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+
+                pygame.display.flip()
+
 
         self.deadNum = 0
         healIndex = 0
