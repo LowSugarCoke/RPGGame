@@ -49,13 +49,13 @@ class AdventurerData:
         self.rect.x = self.width*1/7 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
-        self.life = 1000
+        self.life = 800
         self.attackPosition = [-15, -135]
         self.moveSpeed = 20
         self.attack = archerAttack
         self.attack.image = pygame.image.load('img/sword_attack/attack-0.png')
         self.attack.rect = self.attack.image.get_rect()
-        self.attack.damageCountDistance = [20,70]         
+        self.attack.damageCountDistance = [10,30]         
         self.attack.rotation = -130
         self.attack.zoom = 0.5
         self.attack.loadImages('img/archer_attack/attack-')
@@ -70,13 +70,13 @@ class AdventurerData:
         self.rect.x = self.width*4/7 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
-        self.life = 1000
+        self.life = 1200
         self.moveSpeed = 10
         self.attackPosition = [-30, -140]
         self.attack = orcAttack
         self.attack.image = pygame.image.load('img/orc_attack/attack-0.png')
         self.attack.rect = self.attack.image.get_rect()
-        self.attack.damageCountDistance = [0,100]      
+        self.attack.damageCountDistance = [0,70]      
         self.attack.rotation = -90
         self.attack.zoom = 0.4
         self.attack.loadImages('img/orc_attack/attack-')
@@ -92,13 +92,13 @@ class AdventurerData:
         self.rect.x = self.width*5/7 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
-        self.life = 1000
+        self.life = 600
         self.moveSpeed = 5
         self.attackPosition = [-220, -400]
         self.attack = magicianAttack
         self.attack.image = pygame.image.load('img/magician_attack/attack-0.png')
         self.attack.rect = self.attack.image.get_rect()
-        self.attack.damageCountDistance = [30,150]      
+        self.attack.damageCountDistance = [100,250]      
         self.attack.rotation = 0
         self.attack.zoom = 0.5
         self.attack.loadImages('img/magician_attack/attack-')
@@ -114,7 +114,7 @@ class AdventurerData:
         self.rect.x = self.width*2/7 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
-        self.life = 1000
+        self.life = 500
         self.moveSpeed = 5
         self.attackPosition = [-220, -400]
         self.attack = priestAttack
