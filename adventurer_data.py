@@ -23,7 +23,7 @@ class AdventurerData:
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('img/swordsman.png')
         self.rect = self.image.get_rect()
-        self.rect.x = self.width*3/7 - self.rect.width/2
+        self.rect.x = self.width*5/12 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 1000
@@ -46,7 +46,7 @@ class AdventurerData:
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('img/archer.png')
         self.rect = self.image.get_rect()
-        self.rect.x = self.width*1/7 - self.rect.width/2
+        self.rect.x = self.width*3/12 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 800
@@ -67,7 +67,7 @@ class AdventurerData:
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('img/orc.png')
         self.rect = self.image.get_rect()
-        self.rect.x = self.width*4/7 - self.rect.width/2
+        self.rect.x = self.width*7/12 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 1200
@@ -111,7 +111,7 @@ class AdventurerData:
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('img/priest.png')
         self.rect = self.image.get_rect()
-        self.rect.x = self.width*2/7 - self.rect.width/2
+        self.rect.x = self.width*6/12 - self.rect.width/2
         self.rect.y = self.height-self.rect.height
         self.blood_bar_position = [self.rect.x, self.rect.y]
         self.life = 500
