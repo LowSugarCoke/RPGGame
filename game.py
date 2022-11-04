@@ -8,6 +8,7 @@ from adventurer import Adventurer
 from attack import Attack
 from monster_attack import MonsterAttack
 from opening import Opening
+from opening_story import OpeningStory
 from adventurer_attribute import AdventurerAttribute
 
 class RPGGame:
@@ -28,8 +29,8 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
+        # Opening
         self.opening = Opening(self)
-
         dialogOn = True
         while dialogOn:
             self.opening.drawDialog()
@@ -45,6 +46,23 @@ class RPGGame:
 
                 pygame.display.flip()
 
+
+        # Opening Story
+        self.openingStory = OpeningStory(self)
+        dialogOn = True
+        while dialogOn:
+            self.openingStory.drawDialog()
+
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+
+                pygame.display.flip()
 
 
         # init adventurer data
