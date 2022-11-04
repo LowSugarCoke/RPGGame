@@ -30,11 +30,32 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
+        # #Testing Ending story
+        # self.tendingStory = EndingStory(self)
+        # tdialogOn = True
+        # self.istWin = True
+        # while tdialogOn:
+        #     if(self.istWin == True):
+        #         self.tendingStory.drawWinDialog()
+        #     else:
+        #         self.tendingStory.drawLoseDialog()
+
+        #     for event in pygame.event.get():     
+        #         if event.type == pygame.KEYDOWN:
+        #             if event.key == pygame.K_SPACE:
+        #                 tdialogOn = False
+        #         if event.type == pygame.QUIT:
+        #             pygame.display.update()
+        #             pygame.quit()
+        #             quit()
+
+        #         pygame.display.flip()
 
         # Opening
         self.opening = Opening(self)
         dialogOn = True
         while dialogOn:
+            self.screen.fill((255, 255, 255))
             self.opening.drawDialog()
 
             for event in pygame.event.get():     
@@ -53,8 +74,9 @@ class RPGGame:
         self.openingStory = OpeningStory(self)
         dialogOn = True
         while dialogOn:
-            self.openingStory.drawDialog()
-
+            self.screen.fill((255, 255, 255))
+            self.openingStory.drawDialog1()
+            self.openingStory.drawCharacter1()
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -63,8 +85,42 @@ class RPGGame:
                     pygame.display.update()
                     pygame.quit()
                     quit()
+            pygame.display.flip()
 
-                pygame.display.flip()
+        dialogOn = True
+        while dialogOn:
+            self.screen.fill((255, 255, 255))
+            self.openingStory.drawCharacter2()
+            self.openingStory.drawDialog1()
+            self.openingStory.drawDialog2()
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+            pygame.display.flip()
+
+        dialogOn = True
+        while dialogOn:
+            self.screen.fill((255, 255, 255))
+            self.openingStory.drawCharacter3()
+            self.openingStory.drawDialog1()
+            self.openingStory.drawDialog2()
+            self.openingStory.drawDialog3()
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+            pygame.display.flip()
+
+          
 
 
         # init adventurer data

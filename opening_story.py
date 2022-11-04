@@ -13,13 +13,10 @@ class OpeningStory():
         
         self.font = pygame.font.Font('freesansbold.ttf', 32)
 
-        self.drawDialog()
+      
         return
 
-    def drawDialog(self):
-
-        self.screen.fill(white)
-
+    def drawDialog1(self):
         content = 'Once upon a time, there was '
         text = self.font.render(content, True, blue, white)
         textRect = text.get_rect()
@@ -32,6 +29,7 @@ class OpeningStory():
         textRect.center = (self.screen.get_width() // 3 - 40, self.screen.get_height() // 5 + 30)
         self.screen.blit(text, textRect)
 
+    def drawDialog2(self):
         content = 'One day, a monster boss '
         text = self.font.render(content, True, blue, white)
         textRect = text.get_rect()
@@ -44,6 +42,7 @@ class OpeningStory():
         textRect.center = (self.screen.get_width() // 3-55 , self.screen.get_height()*2 // 5 +30)
         self.screen.blit(text, textRect)
 
+    def drawDialog3(self):
         content = 'The prince decided to gain back'
         text = self.font.render(content, True, blue, white)
         textRect = text.get_rect()
@@ -55,3 +54,58 @@ class OpeningStory():
         textRect = text.get_rect()
         textRect.center = (self.screen.get_width() // 3+80 , self.screen.get_height()*3 // 5 +30)
         self.screen.blit(text, textRect)
+
+    def drawCharacter1(self):
+        image = pygame.image.load('img/prince.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2 -10
+        rect.y = self.screen.get_height()/2-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/princess.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2-70
+        rect.y = self.screen.get_height()/2-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+    def drawCharacter2(self):
+        image = pygame.image.load('img/prince.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2 +80
+        rect.y = self.screen.get_height()/2-rect.height/2 -40
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/exclamation_point.png')
+        image = pygame.transform.rotozoom(image, 0, 0.4)
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2 +80
+        rect.y = self.screen.get_height()/2-rect.height/2 - 120
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/monster.gif')
+        image = pygame.transform.rotozoom(image, 0, 0.4)
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2-70
+        rect.y = self.screen.get_height()/2-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+    def drawCharacter3(self):
+        image = pygame.image.load('img/prince.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2 +80
+        rect.y = self.screen.get_height()/2-rect.height/2 - 40
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/prince_sword.png')
+        image = pygame.transform.rotozoom(image, 0, 0.06)
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()/2-rect.height/2 - 60
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/monster.gif')
+        image = pygame.transform.rotozoom(image, 0, 0.4)
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*10/12 - rect.width/2-70
+        rect.y = self.screen.get_height()/2-rect.height/2 - 100
+        self.screen.blit(image, rect)
