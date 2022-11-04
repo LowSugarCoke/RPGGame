@@ -10,6 +10,7 @@ from monster_attack import MonsterAttack
 from opening import Opening
 from opening_story import OpeningStory
 from adventurer_attribute import AdventurerAttribute
+from ending_story import EndingStory
 
 class RPGGame:
     def __init__(self, w=800, h=600):
@@ -29,6 +30,7 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
+
         # Opening
         self.opening = Opening(self)
         dialogOn = True
@@ -105,6 +107,7 @@ class RPGGame:
 
         self.deadNum = 0
         healIndex = 0
+        self.isWin = False
         while not crashed:            
             clock.tick(12)
             self.screen.fill((0,0,0))
@@ -143,15 +146,46 @@ class RPGGame:
       
             self.monster_attack.blitme()     
             self.monster_attack.randomPosition()
-        
-    
+            
             if self.isFinish():
-                crashed = True
-                pygame.display.update()
-                pygame.quit()
-                quit()
+                crashed = True                
             
             pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    print(event)
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+        
+        #Ending story
+        self.endingStory = EndingStory(self)
+        dialogOn = True
+        while dialogOn:
+            if(self.isWin == True):
+                self.endingStory.drawWinDialog()
+            else:
+                self.endingStory.drawLoseDialog()
+
+            for event in pygame.event.get():     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+
+                pygame.display.flip()
+         
+        pygame.display.update()
+        pygame.quit()
+        quit()
+
+
+      
+            
         
     def initialAttack(self):
         self.swordsmanAttack = Attack(self)
@@ -170,13 +204,13 @@ class RPGGame:
         self.priestData.createPriest(self.priestAttack)
 
     def isFinish(self):
-        if self.deadNum == len(self.adventurer)-1:
+        if self.deadNum == len(self.adventurer):
             print("Lose")
+            self.isWin = False
             return True
         if self.monster.life <0:
             print("Win")
+            self.isWin = True
             return True
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                print(event)
-                return True
+
+         
