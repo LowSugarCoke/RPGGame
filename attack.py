@@ -30,8 +30,7 @@ class Attack(Sprite):
                 path+str(i)+'.png').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
                 self.images[i], self.rotation,  self.zoom)
-        print(len(self.images))
 
-    def move(self, x, y):
+    def move(self, x, y): 
         self.rect.x = x
         self.rect.y = y

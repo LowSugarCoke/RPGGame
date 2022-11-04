@@ -19,7 +19,6 @@ class EndingStory():
 
         self.screen.fill(white)
 
-
         content = 'Win'
         text = pygame.font.Font('freesansbold.ttf', 96).render(content, True, blue, white)
         textRect = text.get_rect()
@@ -38,14 +37,22 @@ class EndingStory():
         textRect.center = (self.screen.get_width()*2 // 4 , self.screen.get_height() *2// 5 + 30)
         self.screen.blit(text, textRect)
 
+        image = pygame.image.load('img/prince.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*6/12 - rect.width/2 +30
+        rect.y = self.screen.get_height()*2/3-rect.height/2 
+        self.screen.blit(image, rect)
 
+        image = pygame.image.load('img/princess.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*6/12 - rect.width/2 -30
+        rect.y = self.screen.get_height()*2/3-rect.height/2 
+        self.screen.blit(image, rect)
 
-        
     
     def drawLoseDialog(self):
         
         self.screen.fill(white)
-
         content = 'Lose'
         text = pygame.font.Font('freesansbold.ttf', 96).render(content, True, blue, white)
         textRect = text.get_rect()
@@ -57,5 +64,15 @@ class EndingStory():
         textRect = text.get_rect()
         textRect.center = (self.screen.get_width()*2 // 4, self.screen.get_height()*2 // 5+30)
         self.screen.blit(text, textRect)
+
+
+
+        image = pygame.image.load('img/dog_cry.png')
+        image = pygame.transform.rotozoom(image, 0, 0.6)
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*6/12 - rect.width/2 
+        rect.y = self.screen.get_height()*2/3-rect.height/2 
+        self.screen.blit(image, rect)
+
 
 
