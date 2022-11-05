@@ -7,7 +7,7 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 
 
-content = 'CYCU x RPG'
+content = 'CYCU x BME x RPG'
 
 class Opening():
     def __init__(self, game):
@@ -16,7 +16,7 @@ class Opening():
 
         self.text = font.render(content, True, blue, white)
         self.textRect = self.text.get_rect()
-        self.textRect.center = (120, 80)
+        self.textRect.center = (160, 80)
         self.drawDialog()
         return
 
