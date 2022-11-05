@@ -7,7 +7,7 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 
 
-content = 'RPG Game'
+content = 'CYCU x RPG'
 
 class Opening():
     def __init__(self, game):
@@ -16,11 +16,22 @@ class Opening():
 
         self.text = font.render(content, True, blue, white)
         self.textRect = self.text.get_rect()
-        self.textRect.center = (self.screen.get_width() // 2, self.screen.get_height() // 2)
+        self.textRect.center = (120, 80)
         self.drawDialog()
         return
 
     def drawDialog(self):
-        self.screen.fill(white)
+        # self.screen.fill(white)
+        image = pygame.image.load('img/cover.jpg')
+        image = pygame.transform.rotozoom(image, 0, 1)
+        rect = image.get_rect()
+        rect.x = 0
+        rect.y = 100
+        self.screen.blit(image, rect)
+
         self.screen.blit(self.text, self.textRect)
+
+
+
+
 
