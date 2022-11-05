@@ -11,6 +11,7 @@ from opening import Opening
 from opening_story import OpeningStory
 from adventurer_attribute import AdventurerAttribute
 from ending_story import EndingStory
+from press_space import PressSpace
 
 class RPGGame:
     def __init__(self, w=800, h=600):
@@ -30,6 +31,9 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
+        # init press space sign
+        self.pressSpace = PressSpace(self)
+
         #Testing Ending story
         # self.tendingStory = EndingStory(self)
         # tdialogOn = True
@@ -54,9 +58,12 @@ class RPGGame:
         # Opening
         self.opening = Opening(self)
         dialogOn = True
+        a = 0
         while dialogOn:
+            clock.tick(12)
             self.screen.fill((255, 255, 255))
             self.opening.drawDialog()
+            self.pressSpace.showPressSpace()
 
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
@@ -67,16 +74,20 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
-                pygame.display.flip()
+            pygame.display.flip()
 
 
         # Opening Story
         self.openingStory = OpeningStory(self)
         dialogOn = True
         while dialogOn:
+            clock.tick(12)
             self.screen.fill((255, 255, 255))
             self.openingStory.drawDialog1()
             self.openingStory.drawCharacter1()
+            self.pressSpace.showPressSpace()
+
+
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -89,10 +100,13 @@ class RPGGame:
 
         dialogOn = True
         while dialogOn:
+            clock.tick(12)
             self.screen.fill((255, 255, 255))
             self.openingStory.drawCharacter2()
             self.openingStory.drawDialog1()
             self.openingStory.drawDialog2()
+            self.pressSpace.showPressSpace()
+
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -105,11 +119,14 @@ class RPGGame:
 
         dialogOn = True
         while dialogOn:
+            clock.tick(12)
             self.screen.fill((255, 255, 255))
             self.openingStory.drawCharacter3()
             self.openingStory.drawDialog1()
             self.openingStory.drawDialog2()
             self.openingStory.drawDialog3()
+            self.pressSpace.showPressSpace()
+
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -147,7 +164,9 @@ class RPGGame:
 
         adventurerDialogOn = True
         while adventurerDialogOn:
+            clock.tick(12)
             self.adventurerAttribute.drawDialog()
+            self.pressSpace.showPressSpace()
 
             for event in pygame.event.get():     
                 if event.type == pygame.KEYDOWN:
@@ -158,14 +177,14 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
-                pygame.display.flip()
+            pygame.display.flip()
 
 
         self.deadNum = 0
         healIndex = 0
         self.isWin = False
         while not crashed:            
-            clock.tick(120)
+            clock.tick(12)
             self.screen.fill((0,0,0))
     
             self.monster.blitme()      
@@ -215,6 +234,7 @@ class RPGGame:
                     pygame.display.update()
                     pygame.quit()
                     quit()
+     
         
         #Ending story
         self.endingStory = EndingStory(self)
@@ -234,7 +254,7 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
-                pygame.display.flip()
+            pygame.display.flip()
          
         pygame.display.update()
         pygame.quit()

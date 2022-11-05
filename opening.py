@@ -23,3 +23,4 @@ class Opening():
     def drawDialog(self):
         self.screen.fill(white)
         self.screen.blit(self.text, self.textRect)
+
