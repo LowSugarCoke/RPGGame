@@ -30,10 +30,10 @@ class RPGGame:
         pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
         # pygame.mixer.music.play(-1)
         
-        # #Testing Ending story
+        #Testing Ending story
         # self.tendingStory = EndingStory(self)
         # tdialogOn = True
-        # self.istWin = True
+        # self.istWin = False
         # while tdialogOn:
         #     if(self.istWin == True):
         #         self.tendingStory.drawWinDialog()
@@ -165,14 +165,15 @@ class RPGGame:
         healIndex = 0
         self.isWin = False
         while not crashed:            
-            clock.tick(12)
+            clock.tick(120)
             self.screen.fill((0,0,0))
     
             self.monster.blitme()      
             self.monster.showHarm()
+            self.deadNum = 0
 
             for adventurer in self.adventurer:
-                self.deadNum = 0
+             
                 if adventurer.life <=0 :
                     self.deadNum+=1
                     continue
