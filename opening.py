@@ -7,14 +7,14 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 
 
-content = 'Good game'
+content = 'RPG Game'
 
 class Opening():
     def __init__(self, game):
         self.screen = game.screen
         font = pygame.font.Font('freesansbold.ttf', 32)
 
-        self.text = font.render(content, True, green, blue)
+        self.text = font.render(content, True, blue, white)
         self.textRect = self.text.get_rect()
         self.textRect.center = (self.screen.get_width() // 2, self.screen.get_height() // 2)
         self.drawDialog()

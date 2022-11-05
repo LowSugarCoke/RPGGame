@@ -109,3 +109,33 @@ class OpeningStory():
         rect.x = self.screen.get_width()*10/12 - rect.width/2-70
         rect.y = self.screen.get_height()/2-rect.height/2 - 100
         self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/swordsman.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*1/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/orc.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*3/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/priest.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*5/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/magician.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*7/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()-rect.height/2 - 100
+        self.screen.blit(image, rect)
+
+        image = pygame.image.load('img/archer.png')
+        rect = image.get_rect()
+        rect.x = self.screen.get_width()*9/12 - rect.width/2 +35
+        rect.y = self.screen.get_height()-rect.height/2 - 100
+        self.screen.blit(image, rect)
