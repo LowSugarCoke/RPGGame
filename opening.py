@@ -9,6 +9,7 @@ blue = (0, 0, 128)
 
 content = 'CYCU x BME x RPG'
 
+
 class Opening():
     def __init__(self, game):
         self.screen = game.screen
@@ -30,8 +31,3 @@ class Opening():
         self.screen.blit(image, rect)
 
         self.screen.blit(self.text, self.textRect)
-
-
-
-
-
