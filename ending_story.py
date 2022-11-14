@@ -37,43 +37,43 @@ class EndingStory():
         textRect.center = (self.screen.get_width()*2 // 4 , self.screen.get_height() *2// 5 + 30)
         self.screen.blit(text, textRect)
 
-        image = pygame.image.load('img/prince.png')
+        image = pygame.image.load('./Img/prince.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*6/12 - rect.width/2 +30
         rect.y = self.screen.get_height()*2/3-rect.height/2 
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/princess.png')
+        image = pygame.image.load('./Img/princess.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*6/12 - rect.width/2 -30
         rect.y = self.screen.get_height()*2/3-rect.height/2 
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/swordsman.png')
+        image = pygame.image.load('./Img/swordsman.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*2/12 - rect.width/2 
         rect.y = self.screen.get_height()-rect.height/2 -100
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/orc.png')
+        image = pygame.image.load('./Img/orc.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*4/12 - rect.width/2 
         rect.y = self.screen.get_height()-rect.height/2 - 100
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/priest.png')
+        image = pygame.image.load('./Img/priest.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*6/12 - rect.width/2 
         rect.y = self.screen.get_height()-rect.height/2 - 100
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/magician.png')
+        image = pygame.image.load('./Img/magician.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*8/12 - rect.width/2 
         rect.y = self.screen.get_height()-rect.height/2 - 100
         self.screen.blit(image, rect)
 
-        image = pygame.image.load('img/archer.png')
+        image = pygame.image.load('./Img/archer.png')
         rect = image.get_rect()
         rect.x = self.screen.get_width()*10/12 - rect.width/2 
         rect.y = self.screen.get_height()-rect.height/2 - 100
@@ -97,7 +97,7 @@ class EndingStory():
 
 
 
-        image = pygame.image.load('img/dog_cry.png')
+        image = pygame.image.load('./Img/dog_cry.png')
         image = pygame.transform.rotozoom(image, 0, 0.6)
         rect = image.get_rect()
         rect.x = self.screen.get_width()*6/12 - rect.width/2 
