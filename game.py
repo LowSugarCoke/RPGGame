@@ -12,6 +12,8 @@ from opening_story import OpeningStory
 from adventurer_attribute import AdventurerAttribute
 from ending_story import EndingStory
 from press_space import PressSpace
+from ghost import Ghost
+from ghost_attack import GhostAttack
 
 
 class RPGGame:
@@ -151,6 +153,23 @@ class RPGGame:
         # initial attack
         self.initialAttack()
 
+        # initial ghost
+        self.ghosts = pygame.sprite.Group()
+        self.ghosts_attack = pygame.sprite.Group()
+        for i in range(0, 5):
+            ghost = Ghost(self)
+            ghost.rect.x = self.screen.get_width() * (1+i) / 7
+            ghost.rect.y = 10
+            self.ghosts.add(ghost)
+
+            ghostX1, ghostY1 = ghost.getPosition()
+            ghostRect = ghost.getMonsterRect()
+            ghost_attack = GhostAttack(
+                self, ghostX1+ghostRect.width/2,  ghostY1+ghostRect.height/2)
+            self.ghosts_attack.add(ghost_attack)
+
+
+        # initial monster
         self.monster = Monster(self)
         monsterX1, monsterY1 = self.monster.getPosition()
         monsterRect = self.monster.getMonsterRect()
@@ -183,6 +202,70 @@ class RPGGame:
         self.deadNum = 0
         healIndex = 0
         self.isWin = False
+
+        # Ghost
+        while not crashed:
+            clock.tick(12)
+            self.screen.fill((0, 0, 0))
+
+            for ghost in self.ghosts:
+                ghost.blitme()
+                ghost.showHarm()
+            self.deadNum = 0
+
+            # for adventurer in self.adventurer:
+
+            #     if adventurer.life <= 0:
+            #         self.deadNum += 1
+            #         continue
+
+            #     adventurer.countFrame()
+            #     if adventurer.isFrameContinue() == False:
+            #         if pygame.sprite.collide_rect_ratio(0.9)(adventurer, self.ghost_attack):
+            #             # self.ghost.attackAdventurer(adventurer)
+            #             print()
+            #         if adventurer.isInAttackRange(self.ghost) and adventurer.character != "Priest":
+            #             adventurer.attackMonster(self.ghost)
+            #         elif adventurer.character == "Priest":
+            #             healIndex = random.randint(0, 4)
+            #             while self.adventurer[healIndex].life < 0:
+            #                 healIndex = random.randint(0, 4)
+            #             adventurer.heal(self.adventurer[healIndex])
+            #         else:
+            #             adventurer.move()
+            #     else:
+            #         if adventurer.character != "Priest":
+            #             adventurer.showAttack(self.ghost)
+            #         else:
+            #             adventurer.showHeal(self.adventurer[healIndex])
+
+            #     adventurer.blitme()
+            #     adventurer.showHarm()
+            #     self.adventurer[healIndex].showHealBlood()
+
+            for ghost_attack in self.ghosts_attack:
+                ghost_attack.blitme()
+                ghost_attack.move()
+
+            # if self.ghost.life <= 0:
+            #     crashed = True
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    print(event)
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+
+        crashed = False
+
+        # initial
+        for adventurer in self.adventurer:
+            adventurer.initial()
+
+        # Monster
         while not crashed:
             clock.tick(12)
             self.screen.fill((0, 0, 0))
