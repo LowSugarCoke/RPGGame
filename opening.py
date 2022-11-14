@@ -23,7 +23,7 @@ class Opening():
 
     def drawDialog(self):
         # self.screen.fill(white)
-        image = pygame.image.load('img/cover.jpg')
+        image = pygame.image.load('./Img/cover.jpg')
         image = pygame.transform.rotozoom(image, 0, 1)
         rect = image.get_rect()
         rect.x = 0
