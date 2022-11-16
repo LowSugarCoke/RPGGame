@@ -207,48 +207,62 @@ class RPGGame:
         while not crashed:
             clock.tick(12)
             self.screen.fill((0, 0, 0))
-
-            for ghost in self.ghosts:
-                ghost.blitme()
-                ghost.showHarm()
             self.deadNum = 0
 
-            # for adventurer in self.adventurer:
+            for ghost in self.ghosts:
+                if ghost.isAlive():
+                    ghost.blitme()
+                    ghost.showHarm()
+                else:
+                    self.deadNum==1
+            
+            if self.deadNum==len(self.ghosts):
+                crashed=True
+                break
+           
+            for adventurer in self.adventurer:
+                if adventurer.life <= 0:
+                    self.deadNum += 1
+                    continue
+                
+                self.deadNum=0
+                for ghost in self.ghosts:
+                    if not ghost.isAlive():
+                        self.deadNum+=1
 
-            #     if adventurer.life <= 0:
-            #         self.deadNum += 1
-            #         continue
+                if self.deadNum==len(self.ghosts):
+                    crashed=True
+                    break
 
-            #     adventurer.countFrame()
-            #     if adventurer.isFrameContinue() == False:
-            #         if pygame.sprite.collide_rect_ratio(0.9)(adventurer, self.ghost_attack):
-            #             # self.ghost.attackAdventurer(adventurer)
-            #             print()
-            #         if adventurer.isInAttackRange(self.ghost) and adventurer.character != "Priest":
-            #             adventurer.attackMonster(self.ghost)
-            #         elif adventurer.character == "Priest":
-            #             healIndex = random.randint(0, 4)
-            #             while self.adventurer[healIndex].life < 0:
-            #                 healIndex = random.randint(0, 4)
-            #             adventurer.heal(self.adventurer[healIndex])
-            #         else:
-            #             adventurer.move()
-            #     else:
-            #         if adventurer.character != "Priest":
-            #             adventurer.showAttack(self.ghost)
-            #         else:
-            #             adventurer.showHeal(self.adventurer[healIndex])
 
-            #     adventurer.blitme()
-            #     adventurer.showHarm()
-            #     self.adventurer[healIndex].showHealBlood()
+                ghost =  adventurer.findCloseMonster(self.ghosts)
+                adventurer.countFrame()
+                if adventurer.isFrameContinue() == False:
+                    for ghost_attack in self.ghosts_attack:
+                        if pygame.sprite.collide_circle_ratio(0.9)(adventurer, ghost_attack):
+                            ghost_attack.attackAdventurer(adventurer)
+                            ghost_attack.clearAttack()
+                    
+                
+                    if adventurer.isInAttackRange(ghost) and adventurer.character != "Priest":
+                        adventurer.attackMonster(ghost)
+                    elif adventurer.character == "Priest":
+                        healIndex = random.randint(0, 4)
+                        while self.adventurer[healIndex].life < 0:
+                            healIndex = random.randint(0, 4)
+                        adventurer.heal(self.adventurer[healIndex])
+                    else:
+                        adventurer.moveToGhost(ghost)
+                else:
+                    if adventurer.character != "Priest":
+                        adventurer.showAttack(ghost)
+                    else:
+                        adventurer.showHeal(self.adventurer[healIndex])
 
-            for ghost_attack in self.ghosts_attack:
-                ghost_attack.blitme()
-                ghost_attack.move()
+                adventurer.blitme()
+                adventurer.showHarm()
+                self.adventurer[healIndex].showHealBlood()
 
-            # if self.ghost.life <= 0:
-            #     crashed = True
 
             pygame.display.flip()
 

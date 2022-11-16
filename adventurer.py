@@ -3,7 +3,7 @@ import random
 import math
 from pygame.sprite import Sprite
 from monster import Monster
-
+import numpy
 
 class Adventurer(Sprite):
     def __init__(self, game, adventurerData):
@@ -58,9 +58,34 @@ class Adventurer(Sprite):
     def getPosition(self):
         return self.rect.x, self.rect.y
 
+
+    def moveToGhost(self, ghost):
+        ghostX = ghost.rect.x
+        ghostY = ghost.rect.y
+
+        ratioX = (ghostX - self.rect.x)
+        ratioY = (self.rect.y - ghostY)
+
+        x = ratioX/ratioY * self.adventurerData.moveSpeed
+        self.rect.y -= self.adventurerData.moveSpeed
+        self.rect.x += x
+        
+        self.blood_bar_position = [self.rect.x, self.rect.y]
+
+
     def move(self):
         self.rect.y -= self.adventurerData.moveSpeed
         self.blood_bar_position = [self.rect.x, self.rect.y]
+
+    def findCloseMonster(self, ghosts) :
+        shortDistance = 10000;
+        for ghost in ghosts:
+            if(ghost.isAlive()):
+                distanceWithAdventurer = numpy.sqrt((ghost.rect.x - self.rect.x) * (ghost.rect.x - self.rect.x) + (ghost.rect.y - self.rect.y) *(ghost.rect.y - self.rect.y))
+                if(shortDistance > distanceWithAdventurer):
+                    shortDistance = min(shortDistance, distanceWithAdventurer)
+                    ret = ghost
+        return ret
 
     def attackMonster(self, monster):
         if self.cd <= 0:
@@ -101,8 +126,8 @@ class Adventurer(Sprite):
 
     def isInAttackRange(self, monster):
         monsterX, monsterY = monster.getPosition()
-        distance = math.sqrt((monsterX - self.rect.x) **
-                             2 + (monsterY - self.rect.y) ** 2)
+        monsterY+=monster.image.get_height()
+        distance = math.sqrt(  (monsterY - self.rect.y) ** 2)
         if(distance <= self.distanceWithMonster):
             return True
         else:
