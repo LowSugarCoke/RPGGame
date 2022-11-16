@@ -31,8 +31,8 @@ class RPGGame:
 
         # init music
         pygame.mixer.init()  # add this line
-        pygame.mixer.music.load(os.path.join("Sound", 'battle.ogg'))
-        # pygame.mixer.music.play(-1)
+        pygame.mixer.music.load(os.path.join("Sound", 'Feel-Good.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
 
         # init press space sign
         self.pressSpace = PressSpace(self)
@@ -79,6 +79,8 @@ class RPGGame:
 
             pygame.display.flip()
 
+        pygame.mixer.music.load(os.path.join("Sound", 'Rise.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
         # Opening Story
         self.openingStory = OpeningStory(self)
         dialogOn = True
@@ -203,6 +205,8 @@ class RPGGame:
         healIndex = 0
         self.isWin = False
 
+        pygame.mixer.music.load(os.path.join("Sound", 'battle_1.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
         # Ghost
         while not crashed:
             clock.tick(12)
@@ -279,6 +283,9 @@ class RPGGame:
         for adventurer in self.adventurer:
             adventurer.initial()
 
+
+        pygame.mixer.music.load(os.path.join("Sound", 'battle_2.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
         # Monster
         while not crashed:
             clock.tick(12)
@@ -335,6 +342,13 @@ class RPGGame:
         # Ending story
         self.endingStory = EndingStory(self)
         dialogOn = True
+        if self.isWin == True:
+            pygame.mixer.music.load(os.path.join("Sound", 'Pathway-Home.ogg'))
+            pygame.mixer.music.play(-1) # -1 means repeatly
+        else:
+            pygame.mixer.music.load(os.path.join("Sound", 'Sovereign.ogg'))
+            pygame.mixer.music.play(-1) # -1 means repeatly
+
         while dialogOn:
             if(self.isWin == True):
                 self.endingStory.drawWinDialog()
