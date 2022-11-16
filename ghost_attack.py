@@ -17,12 +17,12 @@ class GhostAttack(Sprite):
         self.ghostX = ghost_x
         self.ghostY = ghost_y
         self.attackFrame = 0
-        self.damage = 100
         self.rect.x = self.ghostX
         self.rect.y = self.ghostY
         self.dirX = 0
         self.dirY = 0
         self.randomDirection()
+        self.damageCountDistance = [0, 100]
 
     def blitme(self):
         self.screen.blit(self.images[self.attackFrame], self.rect)
@@ -56,4 +56,14 @@ class GhostAttack(Sprite):
             self.images.append(pygame.image.load(
                 './Img/ghost_attack/ghost_attack-'+str(i)+'.png').convert_alpha())
             self.images[i] = pygame.transform.rotozoom(
-                self.images[i], 0, 0.1)
+                self.images[i], 0, 1)
+
+    def clearAttack(self):
+        self.randomDirection()
+        self.rect.x = self.ghostX
+        self.rect.y = self.ghostY
+
+    def attackAdventurer(self, adventurer):
+        damage = random.randint(
+            self.damageCountDistance[0], self.damageCountDistance[1])
+        adventurer.getHarm(damage)

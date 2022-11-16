@@ -37,7 +37,7 @@ class AdventurerData:
         self.attack.zoom = 0.4
         self.attack.loadImages('./Img/sword_attack/attack-')
         self.attack.waitFrame = 12
-        self.distanceWithMonster = 250
+        self.distanceWithMonster = 50
         self.cdTime = 1
    
 
@@ -60,7 +60,7 @@ class AdventurerData:
         self.attack.zoom = 0.5
         self.attack.loadImages('./Img/archer_attack/attack-')
         self.attack.waitFrame = 12
-        self.distanceWithMonster = 400
+        self.distanceWithMonster = 200
  
     def createOrc(self, orcAttack):
         self.character = "Orc"
@@ -81,7 +81,7 @@ class AdventurerData:
         self.attack.zoom = 0.4
         self.attack.loadImages('./Img/orc_attack/attack-')
         self.attack.waitFrame = 12
-        self.distanceWithMonster = 300
+        self.distanceWithMonster = 50
         self.cdTime = 2
     
     def createMagician(self, magicianAttack):
@@ -103,7 +103,7 @@ class AdventurerData:
         self.attack.zoom = 0.5
         self.attack.loadImages('./Img/magician_attack/attack-')
         self.attack.waitFrame = 12
-        self.distanceWithMonster = 500
+        self.distanceWithMonster = 250
         self.cdTime = 5
 
     def createPriest(self, priestAttack):

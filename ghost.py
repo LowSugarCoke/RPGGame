@@ -9,7 +9,6 @@ class Ghost(Sprite):
         self.screen = game.screen
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('./Img/ghost.png')
-        self.image = pygame.transform.rotozoom(self.image, 0, 0.15)
         self.rect = self.image.get_rect()
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = 10
@@ -46,7 +45,9 @@ class Ghost(Sprite):
             self.screen.blit(textSurface, (self.rect.x+200, self.rect.y+30))
             self.harmTimer -= 1
 
-    def attackAdventurer(self, adventurer):
-        damage = random.randint(
-            self.damageCountDistance[0], self.damageCountDistance[1])
-        adventurer.getHarm(damage)
+    def isAlive(self):
+        if self.life<0:
+            return False
+        else:
+            return True
+    
