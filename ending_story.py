@@ -81,7 +81,6 @@ class EndingStory():
 
     
     def drawLoseDialog(self):
-        
         self.screen.fill(white)
         content = 'Lose'
         text = pygame.font.Font('freesansbold.ttf', 96).render(content, True, blue, white)

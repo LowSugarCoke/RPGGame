@@ -171,12 +171,12 @@ class RPGGame:
             ghost.rect.x = self.screen.get_width() * (1+i) / 7
             ghost.rect.y = 10
             self.ghosts.add(ghost)
-
             ghostX1, ghostY1 = ghost.getPosition()
             ghostRect = ghost.getMonsterRect()
             ghost_attack = GhostAttack(
                 self, ghostX1+ghostRect.width/2,  ghostY1+ghostRect.height/2)
             self.ghosts_attack.add(ghost_attack)
+            ghost.addAtack(ghost_attack)
 
 
         # initial monster
@@ -210,6 +210,7 @@ class RPGGame:
 
             pygame.display.flip()
 
+        battleTemple = 12
 
         # Level 1 opening
         pygame.mixer.music.load(os.path.join("Sound", 'level_opening.ogg'))
@@ -236,6 +237,7 @@ class RPGGame:
 
 
         self.deadNum = 0
+        self.ghostDeadNum = 0
         healIndex = 0
         self.isWin = False
 
@@ -243,35 +245,41 @@ class RPGGame:
         pygame.mixer.music.play(-1) # -1 means repeatly
         # Ghost
         while not crashed:
-            clock.tick(12)
+            clock.tick(battleTemple)
             self.screen.fill((0, 0, 0))
+            self.ghostDeadNum = 0
             self.deadNum = 0
 
             for ghost in self.ghosts:
                 if ghost.isAlive():
                     ghost.blitme()
                     ghost.showHarm()
+                    ghost.showAttack()
                 else:
-                    self.deadNum==1
+                    self.ghostDeadNum+=1
             
-            if self.deadNum==len(self.ghosts):
+            if self.ghostDeadNum==len(self.ghosts):
+                self.isWin = True
                 crashed=True
                 break
+
            
             for adventurer in self.adventurer:
                 if adventurer.life <= 0:
                     self.deadNum += 1
+                    if(self.deadNum==5):
+                        print("all die")
                     continue
                 
-                self.deadNum=0
+                self.ghostDeadNum=0
                 for ghost in self.ghosts:
                     if not ghost.isAlive():
-                        self.deadNum+=1
+                        self.ghostDeadNum+=1
 
-                if self.deadNum==len(self.ghosts):
+                if self.ghostDeadNum==len(self.ghosts):
                     crashed=True
+                    self.isWin = True
                     break
-
 
                 ghost =  adventurer.findCloseMonster(self.ghosts)
                 adventurer.countFrame()
@@ -281,14 +289,14 @@ class RPGGame:
                             ghost_attack.attackAdventurer(adventurer)
                             ghost_attack.clearAttack()
                     
-                
                     if adventurer.isInAttackRange(ghost) and adventurer.character != "Priest":
                         adventurer.attackMonster(ghost)
                     elif adventurer.character == "Priest":
-                        healIndex = random.randint(0, 4)
-                        while self.adventurer[healIndex].life < 0:
+                        if adventurer.life>0:
                             healIndex = random.randint(0, 4)
-                        adventurer.heal(self.adventurer[healIndex])
+                            while self.adventurer[healIndex].life < 0:
+                                healIndex = random.randint(0, 4)
+                            adventurer.heal(self.adventurer[healIndex])
                     else:
                         adventurer.moveToGhost(ghost)
                 else:
@@ -311,7 +319,15 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
+            if self.isFinish():
+                crashed = True
+                break
+
         crashed = False
+
+        # Ending story
+        if(self.isWin == False):
+            self.runEnding()
 
         # Level 2 opening
         pygame.mixer.music.load(os.path.join("Sound", 'level_opening.ogg'))
@@ -346,7 +362,7 @@ class RPGGame:
         pygame.mixer.music.play(-1) # -1 means repeatly
         # Monster
         while not crashed:
-            clock.tick(12)
+            clock.tick(battleTemple)
             self.screen.fill((0, 0, 0))
 
             self.monster.blitme()
@@ -397,6 +413,10 @@ class RPGGame:
                     pygame.quit()
                     quit()
 
+
+        self.runEnding()
+
+    def runEnding(self):
         # Ending story
         self.endingStory = EndingStory(self)
         dialogOn = True

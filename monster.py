@@ -7,6 +7,7 @@ from pygame.sprite import Sprite
 class Monster(Sprite):
     def __init__(self, game):
         super().__init__()
+        self.name = "egypt"
         self.screen = game.screen
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('./Img/monster.gif')
