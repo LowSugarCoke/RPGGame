@@ -1,4 +1,5 @@
 import pygame
+import os
 
 # define the RGB value for white,
 #  green, blue colour .
@@ -11,6 +12,8 @@ class PressSpace():
     def __init__(self, game):
         self.screen = game.screen
         self.frame = 0
+
+  
 
     def showPressSpace(self):
         if(self.frame > 12 and self.frame < 24):
@@ -26,3 +29,13 @@ class PressSpace():
             self.frame = 0
         else:
             self.frame += 1
+
+    def pressSpace(self):
+        music =   pygame.mixer.Sound(os.path.join("Sound", 'pressSpace.ogg'))
+        music.play() 
+
+        
+
+        
+
+

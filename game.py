@@ -29,12 +29,14 @@ class RPGGame:
         clock = pygame.time.Clock()
         crashed = False
 
+  
+
         # init music
         pygame.mixer.init()  # add this line
         pygame.mixer.music.load(os.path.join("Sound", 'Feel-Good.ogg'))
-        pygame.mixer.music.play(-1) # -1 means repeatly
+        pygame.mixer.music.play() # -1 means repeatly
 
-        # init press space sign
+      # init press space sign
         self.pressSpace = PressSpace(self)
 
         # Testing Ending story
@@ -71,7 +73,9 @@ class RPGGame:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
+                        self.screen.fill((0, 0, 0))
                         dialogOn = False
+                        self.pressSpace.pressSpace()
                 if event.type == pygame.QUIT:
                     pygame.display.update()
                     pygame.quit()
@@ -95,6 +99,8 @@ class RPGGame:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         dialogOn = False
+                        self.pressSpace.pressSpace()
+                       
                 if event.type == pygame.QUIT:
                     pygame.display.update()
                     pygame.quit()
@@ -114,6 +120,7 @@ class RPGGame:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         dialogOn = False
+                        self.pressSpace.pressSpace()
                 if event.type == pygame.QUIT:
                     pygame.display.update()
                     pygame.quit()
@@ -134,6 +141,7 @@ class RPGGame:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         dialogOn = False
+                        self.pressSpace.pressSpace()
                 if event.type == pygame.QUIT:
                     pygame.display.update()
                     pygame.quit()
@@ -194,6 +202,7 @@ class RPGGame:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         adventurerDialogOn = False
+                        self.pressSpace.pressSpace()
                 if event.type == pygame.QUIT:
                     pygame.display.update()
                     pygame.quit()
