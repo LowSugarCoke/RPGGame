@@ -14,8 +14,8 @@ class Ghost(Sprite):
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = 10
         self.blood_bar_position = [0, self.rect.y]
-        self.life = 500
-        self.maxLife = 500
+        self.life = 1500
+        self.maxLife = 1500
         self.harmTimer = 0
         self.lastHarm = 0
         

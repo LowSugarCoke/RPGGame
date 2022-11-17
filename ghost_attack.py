@@ -22,7 +22,7 @@ class GhostAttack(Sprite):
         self.dirX = 0
         self.dirY = 0
         self.randomDirection()
-        self.damageCountDistance = [70, 150]
+        self.damageCountDistance = [30, 50]
 
     def blitme(self):
         self.screen.blit(self.images[self.attackFrame], self.rect)
