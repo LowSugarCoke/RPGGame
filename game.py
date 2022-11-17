@@ -14,6 +14,7 @@ from ending_story import EndingStory
 from press_space import PressSpace
 from ghost import Ghost
 from ghost_attack import GhostAttack
+from level1_opening import Level1Opening
 
 
 class RPGGame:
@@ -163,6 +164,7 @@ class RPGGame:
         # initial attack
         self.initialAttack()
 
+        
         # initial ghost
         self.ghosts = pygame.sprite.Group()
         self.ghosts_attack = pygame.sprite.Group()
@@ -209,6 +211,29 @@ class RPGGame:
                     quit()
 
             pygame.display.flip()
+
+
+        # Level 1 opening
+        self.level1_opening = Level1Opening(self)
+
+        dialogOn = True
+        while dialogOn:
+            clock.tick(12)
+            self.screen.fill((255, 255, 255))
+            self.level1_opening.drawDialog()
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                        self.pressSpace.pressSpace()
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+            pygame.display.flip()
+
+
 
         self.deadNum = 0
         healIndex = 0
