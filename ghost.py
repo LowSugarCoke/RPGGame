@@ -6,6 +6,7 @@ from pygame.sprite import Sprite
 class Ghost(Sprite):
     def __init__(self, game):
         super().__init__()
+        self.name = "ghost"
         self.screen = game.screen
         self.font = pygame.font.SysFont("arial", 36)
         self.image = pygame.image.load('./Img/ghost.png')
@@ -13,12 +14,11 @@ class Ghost(Sprite):
         self.rect.x = self.screen.get_width()/2 - self.rect.width/2
         self.rect.y = 10
         self.blood_bar_position = [0, self.rect.y]
-        self.life = 100
-        self.maxLife = 100
-        self.damage = 10
-        self.damageCountDistance = [0, 100]
+        self.life = 500
+        self.maxLife = 500
         self.harmTimer = 0
         self.lastHarm = 0
+        
 
     def getHarm(self, harm):
         self.lastHarm = harm
@@ -42,7 +42,7 @@ class Ghost(Sprite):
         if self.harmTimer > 0:
             textSurface = self.font.render(
                 str(self.lastHarm), True, (255, 0, 0), (0, 0, 0))
-            self.screen.blit(textSurface, (self.rect.x+200, self.rect.y+30))
+            self.screen.blit(textSurface, (self.rect.x+70, self.rect.y+30))
             self.harmTimer -= 1
 
     def isAlive(self):
@@ -51,3 +51,9 @@ class Ghost(Sprite):
         else:
             return True
     
+    def addAtack(self, attack):
+        self.attack = attack
+    
+    def showAttack(self):
+        self.attack.blitme()
+        self.attack.move()

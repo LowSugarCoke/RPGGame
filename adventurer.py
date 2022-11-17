@@ -121,8 +121,15 @@ class Adventurer(Sprite):
     def showAttack(self, monster):
         if self.isInAttackRange(monster) and self.cd <= 0:
             self.attack.blitme(self.attackFrame)
-            self.attack.move(
-                self.rect.x+self.adventurerData.attackPosition[0], self.rect.y+self.adventurerData.attackPosition[1])
+            if self.character == "Magician" and monster.name == "ghost":
+                self.attack.move(
+                    monster.rect.x-50, monster.rect.y-70)
+            elif self.character=="Magician" and monster.name =="egypt":
+                self.attack.move(
+                    monster.rect.x+40, monster.rect.y+20)
+            else:
+                self.attack.move(
+                    self.rect.x+self.adventurerData.attackPosition[0], self.rect.y+self.adventurerData.attackPosition[1])
 
     def isInAttackRange(self, monster):
         monsterX, monsterY = monster.getPosition()
