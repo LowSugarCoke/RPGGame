@@ -15,6 +15,7 @@ from press_space import PressSpace
 from ghost import Ghost
 from ghost_attack import GhostAttack
 from level1_opening import Level1Opening
+from level2_opening import Level2Opening
 
 
 class RPGGame:
@@ -29,8 +30,6 @@ class RPGGame:
         pygame.display.set_caption('RPG Game')
         clock = pygame.time.Clock()
         crashed = False
-
-  
 
         # init music
         pygame.mixer.init()  # add this line
@@ -164,7 +163,6 @@ class RPGGame:
         # initial attack
         self.initialAttack()
 
-        
         # initial ghost
         self.ghosts = pygame.sprite.Group()
         self.ghosts_attack = pygame.sprite.Group()
@@ -214,13 +212,15 @@ class RPGGame:
 
 
         # Level 1 opening
+        pygame.mixer.music.load(os.path.join("Sound", 'level_opening.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
         self.level1_opening = Level1Opening(self)
-
         dialogOn = True
         while dialogOn:
             clock.tick(12)
             self.screen.fill((255, 255, 255))
             self.level1_opening.drawDialog()
+            self.pressSpace.showPressSpace()
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -312,6 +312,30 @@ class RPGGame:
                     quit()
 
         crashed = False
+
+        # Level 2 opening
+        pygame.mixer.music.load(os.path.join("Sound", 'level_opening.ogg'))
+        pygame.mixer.music.play(-1) # -1 means repeatly
+        self.level2_opening = Level2Opening(self)
+        dialogOn = True
+        while dialogOn:
+            clock.tick(12)
+            self.screen.fill((255, 255, 255))
+            self.level2_opening.drawDialog()
+            self.pressSpace.showPressSpace()
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        dialogOn = False
+                        self.pressSpace.pressSpace()
+                if event.type == pygame.QUIT:
+                    pygame.display.update()
+                    pygame.quit()
+                    quit()
+            pygame.display.flip()
+
+
 
         # initial
         for adventurer in self.adventurer:

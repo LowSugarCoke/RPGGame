@@ -13,9 +13,6 @@ class AdventurerAttribute():
         self.screen = game.screen
         self.adventurer = adventurer
         self.font = pygame.font.Font('freesansbold.ttf', 16)
-
-        
-
         self.drawDialog()
         return
 
