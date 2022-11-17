@@ -18,7 +18,7 @@ class Monster(Sprite):
         self.life = 10000
         self.maxLife = 10000
         self.damage = 100
-        self.damageCountDistance = [0,100]
+        self.damageCountDistance = [50,250]
         self.harmTimer = 0
         self.lastHarm = 0
 
